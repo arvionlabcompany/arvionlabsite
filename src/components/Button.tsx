@@ -21,7 +21,7 @@ const base =
 const variants: Record<ButtonVariant, string> = {
   primary: 'bg-white text-black hover:bg-ice data-[force=hover]:bg-ice data-[force=pressed]:bg-sky active:bg-sky',
   secondary:
-    'bg-white/[0.08] text-white ring-1 ring-inset ring-white/15 backdrop-blur-md hover:bg-white/[0.14] data-[force=hover]:bg-white/[0.14] active:bg-white/[0.18] data-[force=pressed]:bg-white/[0.18]',
+    'bg-white/[0.08] text-white ring-1 ring-inset ring-white/15 hover:bg-white/[0.14] data-[force=hover]:bg-white/[0.14] active:bg-white/[0.18] data-[force=pressed]:bg-white/[0.18]',
   ghost: 'text-soft hover:bg-white/[0.07] hover:text-white data-[force=hover]:bg-white/[0.07] data-[force=hover]:text-white active:bg-white/[0.1] data-[force=pressed]:bg-white/[0.1]',
 }
 

@@ -80,7 +80,7 @@ export function Plans() {
         body={plans.body}
         aside={
           <div className="relative mx-auto w-full max-w-[520px]">
-            <div className="absolute inset-x-[12%] inset-y-[16%] -z-10 rounded-full bg-fuchsia-500/25 blur-[80px]" aria-hidden />
+            <div className="absolute inset-x-[12%] inset-y-[16%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(217,70,239,0.25),transparent)]" aria-hidden />
             <div className="relative aspect-[4/3] overflow-hidden rounded-card ring-1 ring-inset ring-white/10">
               <ShardField variant="magenta" />
             </div>

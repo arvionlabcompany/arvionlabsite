@@ -27,7 +27,7 @@ export function Nav() {
     <header
       className={cx(
         'fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-300',
-        scrolled ? 'bg-black/70 shadow-[0_1px_0_rgb(255_255_255/0.08)] backdrop-blur-xl' : 'bg-transparent',
+        scrolled ? 'bg-black/90 shadow-[0_1px_0_rgb(255_255_255/0.08)]' : 'bg-transparent',
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8">

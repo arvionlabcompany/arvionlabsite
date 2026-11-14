@@ -37,7 +37,7 @@ export function Company() {
         body={company.paragraphs[0]}
         aside={
           <div className="relative mx-auto w-full max-w-[460px]">
-            <div className="absolute inset-[12%] -z-10 rounded-full bg-fuchsia-500/25 blur-[80px]" aria-hidden />
+            <div className="absolute inset-[12%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(217,70,239,0.25),transparent)]" aria-hidden />
             <Card tone="fire" className="aspect-[4/4.2] w-full">
               <ShardField variant="magenta" />
               <div className="absolute inset-x-0 bottom-0 p-1.5">

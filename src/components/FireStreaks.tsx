@@ -40,27 +40,22 @@ export function FireStreaks({ className, intensity = 1 }: { className?: string; 
     if (!el) return
     const ctx = el.getContext('2d')
     if (!ctx) return
-    const lines = makeLines(220)
+    const lines = makeLines(window.innerWidth < 768 ? 70 : 130)
+    let grads: CanvasGradient[] = []
+    let last = 0
     let w = 0
     let h = 0
     let raf = 0
     let visible = true
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25)
       w = el.clientWidth
       h = el.clientHeight
       el.width = Math.round(w * dpr)
       el.height = Math.round(h * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-
-    const draw = (t: number) => {
-      ctx.clearRect(0, 0, w, h)
-      ctx.globalCompositeOperation = 'lighter'
-      const cx = w / 2
-      const cy = h / 2
-      for (const l of lines) {
+      grads = lines.map((l) => {
         const grad = ctx.createLinearGradient(0, 0, w, 0)
         const a = l.alpha * intensity
         grad.addColorStop(0, `hsla(${l.hue},100%,${l.light}%,0)`)
@@ -68,12 +63,23 @@ export function FireStreaks({ className, intensity = 1 }: { className?: string; 
         grad.addColorStop(0.5, `hsla(${l.hue + 8},100%,${Math.min(l.light + 14, 88)}%,${a})`)
         grad.addColorStop(0.75, `hsla(${l.hue},100%,${l.light}%,${a * 0.5})`)
         grad.addColorStop(1, `hsla(${l.hue},100%,${l.light}%,0)`)
-        ctx.strokeStyle = grad
+        return grad
+      })
+    }
+
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, w, h)
+      ctx.globalCompositeOperation = 'lighter'
+      const cx = w / 2
+      const cy = h / 2
+      for (let k = 0; k < lines.length; k++) {
+        const l = lines[k]
+        ctx.strokeStyle = grads[k]
         ctx.lineWidth = l.width
         ctx.beginPath()
         const sway = Math.sin(t * 0.0004 * l.speed + l.phase) * 0.06
-        for (let i = 0; i <= 48; i++) {
-          const x = (i / 48) * w
+        for (let i = 0; i <= 28; i++) {
+          const x = (i / 28) * w
           const d = Math.abs(x - cx) / cx
           const spread = 0.16 + 0.84 * Math.pow(d, 1.4)
           const y = cy + (l.offset + sway * d) * (h / 2) * spread
@@ -86,7 +92,10 @@ export function FireStreaks({ className, intensity = 1 }: { className?: string; 
     }
 
     const loop = (t: number) => {
-      if (visible) draw(t)
+      if (visible && !document.hidden && t - last > 33) {
+        last = t
+        draw(t)
+      }
       raf = requestAnimationFrame(loop)
     }
 

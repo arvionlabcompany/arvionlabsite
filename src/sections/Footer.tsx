@@ -1,4 +1,5 @@
 import { Container } from '../components/Container'
+import { Logo } from '../components/Logo'
 import { Newsletter } from '../components/Newsletter'
 import { brand, footer } from '../content'
 import { Link } from '../lib/router'
@@ -10,7 +11,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.6fr_0.6fr_1.2fr]">
           <div className="flex flex-col gap-4">
             <Link href="/" aria-label="Início da ARVION Lab" className="-m-2 self-start rounded-[12px] p-2">
-              <img src="/images/logo.png" alt="ARVION Lab" width={680} height={215} className="w-[196px]" />
+              <Logo />
             </Link>
             <p className="max-w-[280px] text-[15px] text-muted">{footer.blurb}</p>
             <address className="text-[14px] not-italic leading-relaxed text-faint">

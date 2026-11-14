@@ -37,7 +37,7 @@ export function Technology() {
         body={solutions.body}
         aside={
           <div className="relative mx-auto max-w-[520px]">
-            <div className="absolute inset-[10%] -z-10 rounded-full bg-plasma/25 blur-[80px]" aria-hidden />
+            <div className="absolute inset-[10%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(91,140,255,0.25),transparent)]" aria-hidden />
             <Core className="w-full" />
           </div>
         }

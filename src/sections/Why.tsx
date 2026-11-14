@@ -42,7 +42,7 @@ export function Why() {
                 <div className="absolute inset-x-0 top-0 -z-10 h-1/2 bg-gradient-to-b from-[#0a1038] to-transparent" aria-hidden />
                 <CardText title={prototype.title} body={prototype.body} />
                 <div className="relative mx-auto mt-auto w-[84%] translate-y-[3%]">
-                  <div className="absolute inset-[14%] -z-10 rounded-full bg-fuchsia-500/30 blur-[50px]" aria-hidden />
+                  <div className="absolute inset-[14%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(217,70,239,0.3),transparent)]" aria-hidden />
                   <Monolith className="w-full" label="" />
                 </div>
               </Card>

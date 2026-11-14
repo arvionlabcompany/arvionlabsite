@@ -56,7 +56,7 @@ export function Applications() {
         body="Sites, sistemas e produtos digitais que já estão no ar — cada um com a identidade do negócio para o qual foi feito."
         aside={
           <div className="relative mx-auto w-full max-w-[520px]">
-            <div className="absolute inset-x-[12%] inset-y-[16%] -z-10 rounded-full bg-cyan-400/20 blur-[80px]" aria-hidden />
+            <div className="absolute inset-x-[12%] inset-y-[16%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(34,211,238,0.2),transparent)]" aria-hidden />
             <div className="relative aspect-[4/3] overflow-hidden rounded-card ring-1 ring-inset ring-white/10">
               <ShardField variant="mixed" />
             </div>
