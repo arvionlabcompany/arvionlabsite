@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef } from 'react'
 import type { ComponentType, ReactNode } from 'react'
 
 import { brand, posts } from './content'
+import { trackHit } from './lib/os'
 import { match, scrollToHash, useLocation } from './lib/router'
 import { Home } from './pages/Home'
 import { NotFound } from './pages/NotFound'
@@ -59,6 +60,10 @@ export function App() {
   const main = useRef<HTMLElement>(null)
   const first = useRef(true)
   const title = hit ? hit.title : 'Página não encontrada'
+
+  useEffect(() => {
+    trackHit(path)
+  }, [path])
 
   useEffect(() => {
     document.title = title === brand.name ? `${brand.name} · ${brand.tagline}` : `${title} | ${brand.name}`

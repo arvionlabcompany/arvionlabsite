@@ -8,6 +8,8 @@ import { Reveal } from '../components/Reveal'
 import { ShardField } from '../components/ShardField'
 import { projects } from '../content'
 import type { Project } from '../content'
+import { useSiteItems } from '../lib/os'
+import type { SiteItem } from '../lib/os'
 import { Milestones } from '../sections/Milestones'
 import { Mission } from '../sections/Mission'
 
@@ -20,9 +22,29 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
           : 'group flex flex-col rounded-card bg-surface ring-1 ring-inset ring-white/10'
       }
     >
-      <div className={featured ? 'relative aspect-[16/10] overflow-hidden rounded-[22px] ring-1 ring-inset ring-white/10' : 'relative aspect-[16/10] overflow-hidden rounded-t-card'}>
-        <ShardField variant={project.art} />
-      </div>
+      {project.images?.length ? (
+        <div className={featured ? 'order-last -mx-2 lg:order-none lg:mx-0' : ''}>
+          <ul className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-2 pb-2 [scrollbar-width:none] lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible lg:px-0">
+            {project.images.map((img, i) => (
+              <li key={img.src} className={i === 0 ? 'w-[86%] shrink-0 snap-center sm:w-[60%] lg:col-span-2 lg:w-auto' : 'w-[86%] shrink-0 snap-center sm:w-[60%] lg:w-auto'}>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  width={900}
+                  height={900}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  className="aspect-square w-full rounded-[22px] object-cover ring-1 ring-inset ring-white/10"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className={featured ? 'relative aspect-[16/10] overflow-hidden rounded-[22px] ring-1 ring-inset ring-white/10' : 'relative aspect-[16/10] overflow-hidden rounded-t-card'}>
+          <ShardField variant={project.art} />
+        </div>
+      )}
       <div className={featured ? 'flex flex-col items-start gap-3' : 'flex flex-1 flex-col items-start gap-2 p-6'}>
         <p className="text-[14px] font-medium text-plasma-text">{project.category}</p>
         <h2 className={featured ? 'display text-[34px] sm:text-[42px]' : 'text-[22px] font-medium tracking-[-0.02em]'}>{project.name}</h2>
@@ -45,8 +67,23 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
   )
 }
 
+function toProject(i: SiteItem): Project {
+  return {
+    name: i.title,
+    category: i.category ?? '',
+    summary: i.summary ?? '',
+    href: i.href ?? undefined,
+    note: i.note ?? undefined,
+    art: 'mixed',
+    images: [i.image, i.image2, i.image3].filter((x): x is string => !!x).map((src) => ({ src, alt: i.title })),
+  }
+}
+
 export function Applications() {
-  const [featured, ...rest] = projects
+  const items = useSiteItems()
+  const list = items ? items.filter((i) => i.kind === 'projeto').map(toProject) : projects.filter((p) => !p.hidden)
+  const [featured, ...rest] = list
+  const extras = items ? items.filter((i) => i.kind === 'produto' || i.kind === 'servico') : []
 
   return (
     <>
@@ -73,9 +110,14 @@ export function Applications() {
           <h2 id="projects-title" className="sr-only">
             Projetos selecionados
           </h2>
-          <Reveal>
-            <ProjectCard project={featured} featured />
-          </Reveal>
+          {featured ? (
+            <Reveal>
+              <ProjectCard project={featured} featured />
+            </Reveal>
+          ) : (
+            <p className="text-[16px] text-muted">Novos projetos em breve.</p>
+          )}
+          {rest.length ? (
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
             {rest.map((p, i) => (
               <Reveal as="li" key={p.name} delay={(i % 2) * 0.06}>
@@ -83,7 +125,24 @@ export function Applications() {
               </Reveal>
             ))}
           </ul>
-          <p className="mt-8 text-[13px] text-faint">As imagens de capa são ilustrações da identidade de cada projeto; os sites reais estão nos links.</p>
+          ) : null}
+          {extras.length ? (
+            <ul className="mt-10 grid gap-4 md:grid-cols-2">
+              {extras.map((x) => (
+                <li key={x.id} className="rounded-card bg-surface p-6 ring-1 ring-inset ring-white/10">
+                  {x.category ? <p className="text-[13px] text-faint">{x.category}</p> : null}
+                  <h3 className="mt-1 text-[20px] font-medium tracking-[-0.02em]">{x.title}</h3>
+                  {x.summary ? <p className="mt-2 text-[15px] text-muted">{x.summary}</p> : null}
+                  {x.price_text ? <p className="mt-3 text-[15px] font-medium">{x.price_text}</p> : null}
+                  {x.href ? (
+                    <a className="mt-3 inline-block text-[15px] text-cyan-300 underline-offset-4 hover:underline" href={x.href} target="_blank" rel="noreferrer">
+                      Saiba mais
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </Container>
       </section>
 

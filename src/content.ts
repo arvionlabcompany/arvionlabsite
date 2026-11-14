@@ -191,11 +191,15 @@ export type Project = {
   href?: string
   note?: string
   art: 'cyan' | 'magenta' | 'mixed'
+  images?: { src: string; alt: string }[]
+  /** true = não aparece no site (continua guardado aqui) */
+  hidden?: boolean
 }
 
 export const projects: Project[] = [
   {
     name: 'Barbeiro Jacke',
+    hidden: true,
     category: 'Site · Barbearia',
     summary: 'Presença digital para barbearia com atendimento a domicílio, em duas versões visuais e agendamento pelo WhatsApp.',
     href: 'https://barbeirojacke.htmly.com.br/',
@@ -203,6 +207,11 @@ export const projects: Project[] = [
   },
   {
     name: 'PASSIN cut',
+    images: [
+      { src: '/images/passin-ferramentas.webp', alt: 'PASSIN cut: todas as ferramentas para a sua barbearia, com painel, assinantes, agenda e relatórios' },
+      { src: '/images/passin-assinantes-faturas.webp', alt: 'PASSIN cut: gestão de assinantes e emissão de faturas' },
+      { src: '/images/passin-relatorios-agenda.webp', alt: 'PASSIN cut: relatórios e agenda de atendimentos' },
+    ],
     category: 'App / Web · ARVION Products',
     summary: 'Aplicativo de assinaturas para barbearias: planos mensais, cobrança por Pix e controle de assinantes, planos e faturas.',
     href: 'https://assinaturasjacke.wuaze.com/',
@@ -210,6 +219,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Controle Veicular Pro',
+    hidden: true,
     category: 'Sistema web · ARVION Solutions',
     summary: 'Sistema de uso interno com dashboard de indicadores e gráficos, financeiro, notas e histórico.',
     note: 'Acesso restrito',
@@ -217,6 +227,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Beatriz Bhering',
+    hidden: true,
     category: 'Site · Nail designer',
     summary: 'Presença digital para nail designer, com valores, trabalhos, espaço e agendamento, em duas versões visuais.',
     href: 'https://beatrizbhering.htmly.com.br/',
@@ -224,6 +235,7 @@ export const projects: Project[] = [
   },
   {
     name: 'JR Barbearia',
+    hidden: true,
     category: 'Site · Barbearia',
     summary: 'Site em preto e vermelho com foto de impacto em tela cheia e agendamento direto pelo WhatsApp.',
     art: 'cyan',

@@ -5,10 +5,13 @@ import { Badge } from '../components/Controls'
 import { Container } from '../components/Container'
 import { BrandStage } from '../components/BrandStage'
 import { hero } from '../content'
+import { useSiteText } from '../lib/os'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 export function Hero() {
+  const eyebrow = useSiteText('hero.eyebrow', hero.eyebrow)
+  const body = useSiteText('hero.body', hero.body)
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
       {/* Black sky lifting to a violet glow at the horizon */}
@@ -19,7 +22,7 @@ export function Hero() {
         <div className="flex flex-col items-start gap-7">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
             <Badge tone="plasma" pulse>
-              {hero.eyebrow}
+              {eyebrow}
             </Badge>
           </motion.div>
           <motion.h1
@@ -41,7 +44,7 @@ export function Hero() {
             transition={{ duration: 0.9, delay: 0.16, ease }}
             className="max-w-[520px] text-pretty text-[18px] leading-[1.55] text-muted"
           >
-            {hero.body}
+            {body}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 14 }}
