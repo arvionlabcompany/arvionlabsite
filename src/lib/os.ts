@@ -6,7 +6,9 @@ import { useEffect, useState } from 'react'
   o site continua funcionando com o conteúdo de content.ts.
   O "&i=1" evita a página de verificação da InfinityFree em chamadas de API.
 */
-const OS_API = 'https://arvionsystem.wuaze.com/api.php'
+const OS_API = 'https://arvionsystem.wuaze.com/ponte.php'
+/** Etapa 2: leitura de projetos/textos do OS (ainda desligada). */
+const PUB_ENABLED = false
 const url = (a: string) => `${OS_API}?a=${a}&i=1`
 
 export type SiteItem = {
@@ -28,8 +30,8 @@ export type SiteItem = {
 let cache: Promise<SiteItem[] | null> | null = null
 export function loadSiteItems(): Promise<SiteItem[] | null> {
   if (!cache) {
-    cache = fetch(url('pub'))
-      .then((r) => (r.ok ? r.json() : null))
+    cache = (PUB_ENABLED ? fetch(url('pub')) : Promise.resolve(null as unknown as Response))
+      .then((r) => (r && r.ok ? r.json() : null))
       .then((j) => (j && Array.isArray(j.items) ? (j.items as SiteItem[]) : null))
       .catch(() => null)
   }
