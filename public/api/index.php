@@ -109,6 +109,16 @@ if ($route === 'health') {
     out(['ok' => true]);
 }
 
+if ($route === 'content') {
+    header('Cache-Control: public, max-age=60');
+    out(['items' => os_content()]);
+}
+
+if ($route === 'file') {
+    if (os_file((int) ($_GET['id'] ?? 0))) exit;
+    out(['error' => 'Not found'], 404);
+}
+
 if (!in_array($route, ['early-access', 'contact', 'subscribe', 'hit'], true)) {
     out(['error' => 'Not found'], 404);
 }

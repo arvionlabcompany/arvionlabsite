@@ -94,3 +94,35 @@ function os_hit(array $v): void {
         error_log('os_bridge hit: ' . $e->getMessage());
     }
 }
+
+/** Conteúdo publicado no OS (aba Site). null = indisponível: o site usa o conteúdo padrão. */
+function os_content(): ?array {
+    try {
+        $pdo = os_pdo();
+        if (!$pdo) return null;
+        return $pdo->query('SELECT id,kind,slug,title,category,summary,href,note,image,image2,image3,price_text,sort FROM site_items WHERE visible=1 ORDER BY sort ASC,id ASC')->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $e) {
+        error_log('os_bridge content: ' . $e->getMessage());
+        return null;
+    }
+}
+
+/** Entrega uma imagem enviada pelo OS (guardada no banco). Retorna false se não existir. */
+function os_file(int $id): bool {
+    try {
+        $pdo = os_pdo();
+        if (!$pdo || $id < 1) return false;
+        $s = $pdo->prepare('SELECT mime,data FROM site_files WHERE id=?');
+        $s->execute([$id]);
+        $r = $s->fetch(PDO::FETCH_ASSOC);
+        if (!$r) return false;
+        header('Content-Type: ' . $r['mime']);
+        header('Cache-Control: public, max-age=31536000, immutable');
+        header('Content-Length: ' . strlen((string) $r['data']));
+        echo $r['data'];
+        return true;
+    } catch (Throwable $e) {
+        error_log('os_bridge file: ' . $e->getMessage());
+        return false;
+    }
+}

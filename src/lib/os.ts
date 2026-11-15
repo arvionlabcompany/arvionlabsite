@@ -3,12 +3,8 @@ import { useEffect, useState } from 'react'
 /*
   Ligação com o ARVION OS (painel único). Leads e acessos são gravados pelo
   servidor do site (api/os_bridge.php) direto no banco do OS; o navegador só
-  fala com o próprio site. A leitura de projetos/textos do OS fica para a etapa 2.
+  fala com o próprio site. Projetos e textos cadastrados na aba "Site" do OS chegam por /api/content.
 */
-const OS_API = 'https://arvionsystem.wuaze.com/ponte.php'
-/** Etapa 2: leitura de projetos/textos do OS (ainda desligada). */
-const PUB_ENABLED = false
-const url = (a: string) => `${OS_API}?a=${a}&i=1`
 
 export type SiteItem = {
   id: number
@@ -29,8 +25,8 @@ export type SiteItem = {
 let cache: Promise<SiteItem[] | null> | null = null
 export function loadSiteItems(): Promise<SiteItem[] | null> {
   if (!cache) {
-    cache = (PUB_ENABLED ? fetch(url('pub')) : Promise.resolve(null as unknown as Response))
-      .then((r) => (r && r.ok ? r.json() : null))
+    cache = fetch('/api/content')
+      .then((r) => (r.ok ? r.json() : null))
       .then((j) => (j && Array.isArray(j.items) ? (j.items as SiteItem[]) : null))
       .catch(() => null)
   }
