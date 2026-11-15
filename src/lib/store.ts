@@ -1,5 +1,4 @@
 import { useCallback, useSyncExternalStore } from 'react'
-import { forwardLead } from './os'
 
 /*
   Tiny localStorage-backed state. `useStored(key, fallback)` behaves like
@@ -85,8 +84,6 @@ export async function postJson<T = { ok: true }>(
     const res = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
     const json = (await res.json().catch(() => ({}))) as { error?: string; errors?: Record<string, string> }
     if (!res.ok) return { ok: false, error: json.error ?? 'Something went wrong. Try again.', errors: json.errors }
-    const m = /^\/api\/(contact|early-access|subscribe)$/.exec(url)
-    if (m) forwardLead(m[1] as 'contact' | 'early-access' | 'subscribe', data)
     return { ok: true, data: json as T }
   } catch {
     return { ok: false, error: 'You appear to be offline. Check your connection and try again.' }

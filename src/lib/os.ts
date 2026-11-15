@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 
 /*
-  Ligação com o ARVION OS (painel único). O site lê o conteúdo publicado, envia
-  formulários como leads e conta acessos anônimos. Se o OS estiver fora do ar,
-  o site continua funcionando com o conteúdo de content.ts.
-  O "&i=1" evita a página de verificação da InfinityFree em chamadas de API.
+  Ligação com o ARVION OS (painel único). Leads e acessos são gravados pelo
+  servidor do site (api/os_bridge.php) direto no banco do OS; o navegador só
+  fala com o próprio site. A leitura de projetos/textos do OS fica para a etapa 2.
 */
 const OS_API = 'https://arvionsystem.wuaze.com/ponte.php'
 /** Etapa 2: leitura de projetos/textos do OS (ainda desligada). */
@@ -60,20 +59,6 @@ export function useSiteText(slug: string, fallback: string): string {
 
 export const siteImg = (u: string) => u
 
-export function forwardLead(type: 'contact' | 'early-access' | 'subscribe', data: unknown) {
-  if (typeof data !== 'object' || data === null) return
-  try {
-    void fetch(url('intake'), {
-      method: 'POST',
-      headers: { 'content-type': 'text/plain' },
-      body: JSON.stringify({ type, ...(data as Record<string, unknown>) }),
-      keepalive: true,
-    }).catch(() => {})
-  } catch {
-    /* o formulário já foi salvo pela API do próprio site */
-  }
-}
-
 function visitorId(): string {
   try {
     let v = localStorage.getItem('av_vid')
@@ -88,13 +73,14 @@ function visitorId(): string {
 }
 
 let first = true
+/** Conta o acesso de forma anônima: o servidor do site grava no ARVION OS. */
 export function trackHit(path: string) {
   try {
     const ref = first ? document.referrer : ''
     first = false
-    void fetch(url('hit'), {
+    void fetch('/api/hit', {
       method: 'POST',
-      headers: { 'content-type': 'text/plain' },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ path, vid: visitorId(), ref }),
       keepalive: true,
     }).catch(() => {})

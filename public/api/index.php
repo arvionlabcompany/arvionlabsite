@@ -6,6 +6,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/os_bridge.php';
+
 const NOTIFY_EMAIL = 'arvionlab.company@gmail.com';
 const SEGMENTS = ['landing', 'site', 'sistema', 'outro'];
 const TOPICS = ['orcamento', 'suporte', 'parceria', 'outro'];
@@ -107,7 +109,7 @@ if ($route === 'health') {
     out(['ok' => true]);
 }
 
-if (!in_array($route, ['early-access', 'contact', 'subscribe'], true)) {
+if (!in_array($route, ['early-access', 'contact', 'subscribe', 'hit'], true)) {
     out(['error' => 'Not found'], 404);
 }
 if ($method !== 'POST') {
@@ -118,6 +120,11 @@ if ($method !== 'POST') {
 $v = body();
 if ($v === null) out(['error' => 'Send a JSON body.'], 400);
 
+if ($route === 'hit') {
+    os_hit($v);
+    out(['ok' => true]);
+}
+
 if ($route === 'early-access') {
     $errors = validate_early_access($v);
     if ($errors) out(['error' => 'Check the highlighted fields.', 'errors' => $errors], 422);
@@ -126,6 +133,7 @@ if ($route === 'early-access') {
     $rec = ['reference' => $ref];
     foreach ($f as $k) $rec[$k] = str($v[$k] ?? '');
     store('early-access', $rec);
+    os_lead('early-access', $rec);
     $lines = [];
     foreach ($rec as $k => $val) $lines[] = "$k: $val";
     notify('Novo briefing ' . $ref . ' — ' . clean_line($rec['organisation']), implode("\n", $lines), clean_line($rec['email']));
@@ -140,6 +148,7 @@ if ($route === 'contact') {
         'topic' => str($v['topic']), 'message' => str($v['message']),
     ];
     store('contact', $rec);
+    os_lead('contact', $rec);
     notify('Contato do site — ' . clean_line($rec['topic']), "Nome: {$rec['name']}\nE-mail: {$rec['email']}\nAssunto: {$rec['topic']}\n\n{$rec['message']}", clean_line($rec['email']));
     out(['ok' => true]);
 }
@@ -148,4 +157,5 @@ if ($route === 'contact') {
 $err = validate_email(str($v['email'] ?? ''));
 if ($err) out(['error' => $err, 'errors' => ['email' => $err]], 422);
 store('subscribe', ['email' => trim(str($v['email']))]);
+os_lead('subscribe', ['email' => trim(str($v['email']))]);
 out(['ok' => true]);
