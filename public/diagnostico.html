@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Diagnóstico site → OS</title>
+<style>body{font:14px/1.55 ui-monospace,Menlo,monospace;background:#0b0f1a;color:#dfe8ff;padding:16px}pre{white-space:pre-wrap;word-break:break-word}button{margin:8px 0;padding:12px 16px;border-radius:10px;border:0;background:#20d9e8;color:#041018;font:600 15px system-ui}</style>
+</head>
+<body>
+<pre id="o">Executando…</pre>
+<button id="b">Enviar lead de teste ao OS</button>
+<script>
+var BASE='https://arvionsystem.wuaze.com/ponte.php';
+var o=document.getElementById('o');
+function L(m){o.textContent+='\n'+m}
+function short(t){return String(t).replace(/\s+/g,' ').slice(0,160)}
+(async function(){
+  o.textContent='Diagnóstico site → OS';
+  L('Endereço do site: '+location.origin);
+  try{
+    var h=await (await fetch('/?x='+Date.now(),{cache:'no-store'})).text();
+    var m=h.match(/\/assets\/[^"']+\.js/g)||[];var found=false;
+    for(var i=0;i<m.length&&!found;i++){var js=await (await fetch(m[i],{cache:'no-store'})).text();if(js.indexOf('ponte.php')>-1)found=true}
+    L('1) site publicado usa ponte.php: '+(found?'SIM':'NAO (versão antiga publicada)'));
+  }catch(e){L('1) erro ao ler o site: '+e)}
+  try{
+    var r=await fetch(BASE+'?a=status&i=1',{cache:'no-store'});var t=await r.text();
+    L('2) status do OS: HTTP '+r.status+' → '+short(t));
+  }catch(e){L('2) status do OS: FALHOU ('+e+')')}
+})();
+document.getElementById('b').onclick=async function(){
+  try{
+    var r=await fetch(BASE+'?a=intake&i=1',{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({type:'contact',name:'Teste Diagnostico',email:'teste@example.com',message:'Lead de teste enviado pela pagina de diagnostico'})});
+    var t=await r.text();L('3) envio de lead: HTTP '+r.status+' → '+short(t));
+  }catch(e){L('3) envio de lead: FALHOU ('+e+')')}
+};
+</script>
+</body>
+</html>
