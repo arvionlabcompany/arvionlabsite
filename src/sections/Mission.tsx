@@ -1,7 +1,6 @@
 import { Container } from '../components/Container'
 import { LinkRow } from '../components/Controls'
 import { Reveal } from '../components/Reveal'
-import { Skyline } from '../components/Skyline'
 import { mission } from '../content'
 
 /** "Build something that lasts": the neon panel with three ways in. */
@@ -21,7 +20,7 @@ export function Mission() {
                   </span>
                 ))}
               </h2>
-              <Skyline className="-mb-14 -ml-14 mt-10 w-[min(520px,calc(100%+56px))] sm:-mb-10 sm:-ml-10 lg:-mb-14 lg:-ml-14 lg:mt-auto" />
+              <img src="/images/art-cristais-mixed.webp" alt="" aria-hidden width={1000} height={650} loading="lazy" decoding="async" className="mt-10 w-[min(520px,100%)] rounded-[18px] [mask-image:linear-gradient(to_top,black_50%,transparent)] lg:mt-auto" />
             </div>
             <ul className="mt-12 flex flex-col self-center lg:mt-0">
               {mission.rows.map((r) => (

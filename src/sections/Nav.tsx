@@ -1,10 +1,10 @@
-import { Menu } from 'lucide-react'
+import { LockKeyhole, Menu } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { ButtonLink, IconButton } from '../components/Button'
 import { Logo } from '../components/Logo'
 import { Sheet } from '../components/Sheet'
-import { cta, nav } from '../content'
+import { brand, cta, nav } from '../content'
 import { cx } from '../lib/cx'
 import { isCurrent, Link, useLocation } from '../lib/router'
 
@@ -56,6 +56,15 @@ export function Nav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
+          <a
+            href={brand.teamUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden h-10 items-center gap-2 rounded-control px-4 text-[15px] text-muted ring-1 ring-inset ring-white/15 transition-colors hover:text-white lg:inline-flex"
+          >
+            <LockKeyhole className="size-4" aria-hidden />
+            Equipe Arvion
+          </a>
           <ButtonLink href={cta.href} size="sm" className="hidden sm:inline-flex">
             {cta.label}
           </ButtonLink>
@@ -82,7 +91,16 @@ export function Nav() {
               )
             })}
           </ul>
-          <div className="mt-auto pt-6">
+          <div className="mt-auto flex flex-col gap-3 pt-6">
+            <a
+              href={brand.teamUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-control text-[16px] text-soft ring-1 ring-inset ring-white/15 hover:text-white"
+            >
+              <LockKeyhole className="size-4" aria-hidden />
+              Equipe Arvion
+            </a>
             <ButtonLink href={cta.href} size="lg" className="w-full">
               {cta.label}
             </ButtonLink>

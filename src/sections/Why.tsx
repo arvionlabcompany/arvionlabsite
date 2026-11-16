@@ -1,7 +1,6 @@
 import { Card, CardText } from '../components/Card'
 import { Container } from '../components/Container'
 import { FireStreaks } from '../components/FireStreaks'
-import { Monolith } from '../components/Monolith'
 import { Pedigree } from '../components/Pedigree'
 import { Reveal } from '../components/Reveal'
 import { ShardField } from '../components/ShardField'
@@ -43,7 +42,7 @@ export function Why() {
                 <CardText title={prototype.title} body={prototype.body} />
                 <div className="relative mx-auto mt-auto w-[84%] translate-y-[3%]">
                   <div className="absolute inset-[14%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(217,70,239,0.3),transparent)]" aria-hidden />
-                  <Monolith className="w-full" label="" />
+                  <img src="/images/art-logo-a.webp" alt="" aria-hidden width={900} height={814} loading="lazy" decoding="async" className="w-full [mask-image:radial-gradient(closest-side,black_60%,transparent)]" />
                 </div>
               </Card>
             </Reveal>

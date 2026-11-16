@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Ilustração de um painel de sistema com gráficos e indicadores">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#08162e"/><stop offset="1" stop-color="#120a30"/></linearGradient>
+<linearGradient id="neon" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+<linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity=".45"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
+<linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7"/><stop offset="1" stop-color="#4f46e5"/></linearGradient>
+<radialGradient id="glow"><stop offset="0" stop-color="#22d3ee" stop-opacity=".4"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="480" height="360" fill="url(#bg)"/>
+<circle cx="110" cy="300" r="170" fill="url(#glow)"/>
+<rect x="30" y="34" width="420" height="292" rx="16" fill="#0a0f1f" stroke="#fff" stroke-opacity=".16"/>
+<path d="M30 50a16 16 0 0 1 16-16h56v292H46a16 16 0 0 1-16-16z" fill="#0f1730"/>
+<path d="M54 62l16-26 16 26z" transform="translate(-6 -4) scale(.9)" fill="url(#neon)"/>
+<rect x="46" y="96" width="44" height="22" rx="8" fill="#1d2a52"/>
+<circle cx="57" cy="107" r="4" fill="#22d3ee"/><rect x="66" y="105" width="18" height="4" rx="2" fill="#9fb0dc"/>
+<circle cx="57" cy="139" r="4" fill="#475a8c"/><rect x="66" y="137" width="18" height="4" rx="2" fill="#475a8c"/>
+<circle cx="57" cy="165" r="4" fill="#475a8c"/><rect x="66" y="163" width="18" height="4" rx="2" fill="#475a8c"/>
+<circle cx="57" cy="191" r="4" fill="#475a8c"/><rect x="66" y="189" width="18" height="4" rx="2" fill="#475a8c"/>
+<circle cx="57" cy="217" r="4" fill="#475a8c"/><rect x="66" y="215" width="18" height="4" rx="2" fill="#475a8c"/>
+<rect x="118" y="52" width="110" height="10" rx="5" fill="#e8eeff"/>
+<rect x="352" y="48" width="78" height="22" rx="11" fill="url(#neon)"/>
+<rect x="118" y="86" width="92" height="56" rx="12" fill="#101a38" stroke="#fff" stroke-opacity=".08"/>
+<rect x="224" y="86" width="92" height="56" rx="12" fill="#101a38" stroke="#fff" stroke-opacity=".08"/>
+<rect x="330" y="86" width="100" height="56" rx="12" fill="#101a38" stroke="#fff" stroke-opacity=".08"/>
+<rect x="130" y="98" width="44" height="6" rx="3" fill="#7d8bb5"/><rect x="130" y="114" width="60" height="14" rx="5" fill="#e8eeff"/>
+<rect x="236" y="98" width="44" height="6" rx="3" fill="#7d8bb5"/><rect x="236" y="114" width="52" height="14" rx="5" fill="#e8eeff"/>
+<rect x="342" y="98" width="44" height="6" rx="3" fill="#7d8bb5"/><rect x="342" y="114" width="68" height="14" rx="5" fill="#e8eeff"/>
+<rect x="118" y="158" width="190" height="150" rx="14" fill="#101a38" stroke="#fff" stroke-opacity=".08"/>
+<rect x="132" y="172" width="70" height="7" rx="3.5" fill="#9fb0dc"/>
+<path d="M132 280 C160 270 172 244 198 250 C224 256 236 214 262 220 C282 224 292 196 296 192 L296 292 L132 292 Z" fill="url(#area)"/>
+<path d="M132 280 C160 270 172 244 198 250 C224 256 236 214 262 220 C282 224 292 196 296 192" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+<circle cx="296" cy="192" r="5" fill="#fff"/>
+<rect x="322" y="158" width="108" height="150" rx="14" fill="#101a38" stroke="#fff" stroke-opacity=".08"/>
+<rect x="336" y="172" width="56" height="7" rx="3.5" fill="#9fb0dc"/>
+<rect x="338" y="248" width="14" height="44" rx="5" fill="url(#bar)"/>
+<rect x="360" y="226" width="14" height="66" rx="5" fill="url(#bar)"/>
+<rect x="382" y="204" width="14" height="88" rx="5" fill="url(#bar)"/>
+<rect x="404" y="236" width="14" height="56" rx="5" fill="url(#bar)"/>
+</svg>

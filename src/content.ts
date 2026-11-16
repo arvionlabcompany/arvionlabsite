@@ -10,8 +10,9 @@ export const brand = {
   tagline: 'Digital Engineering & Creative Technology',
   whatsapp: '+55 21 98358-7707',
   whatsappUrl: 'https://wa.me/5521983587707',
-  instagram: '@arvionlab',
-  instagramUrl: 'https://www.instagram.com/arvionlab/',
+  instagram: '@arvioncompany',
+  instagramUrl: 'https://www.instagram.com/arvioncompany/',
+  teamUrl: 'https://arvionsystem.wuaze.com/?i=1',
   location: 'Atendimento online · Rio de Janeiro, Brasil',
 }
 
@@ -40,27 +41,30 @@ export const hero = {
 
 export type Segment = 'landing' | 'site' | 'sistema' | 'outro'
 
-export const audiences: Array<{ id: string; title: string; body: string; href: string; art: 'product' | 'ai' | 'platform' }> = [
+export const audiences: Array<{ id: string; title: string; body: string; href: string; image: string; imageAlt: string }> = [
   {
     id: 'sites',
     title: 'Sites e presença digital',
     body: 'Institucionais, landing pages e portfólios com identidade própria e agendamento pelo WhatsApp.',
     href: '/orcamento?segment=site',
-    art: 'product',
+    image: '/images/art-sites.svg',
+    imageAlt: 'Ilustração de um site moderno aberto no navegador',
   },
   {
     id: 'sistemas',
     title: 'Sistemas e plataformas',
     body: 'Painéis administrativos, controle de dados e automações sob medida para a sua operação.',
     href: '/orcamento?segment=sistema',
-    art: 'platform',
+    image: '/images/art-sistemas.svg',
+    imageAlt: 'Ilustração de um painel de sistema com gráficos e indicadores',
   },
   {
     id: 'produtos',
     title: 'Produtos próprios',
     body: 'Apps e plataformas da ARVION Products, como o PASSIN cut para barbearias.',
     href: '/projetos',
-    art: 'ai',
+    image: '/images/art-passin.webp',
+    imageAlt: 'Painel do PASSIN cut, aplicativo de assinaturas para barbearias',
   },
 ]
 

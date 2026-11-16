@@ -21,6 +21,12 @@ export function Footer() {
               <a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="mt-1 inline-flex min-h-8 items-center hover:text-white">
                 WhatsApp {brand.whatsapp}
               </a>
+              <a href={brand.instagramUrl} target="_blank" rel="noreferrer" className="flex min-h-8 items-center hover:text-white">
+                Instagram {brand.instagram}
+              </a>
+              <a href={brand.teamUrl} target="_blank" rel="noopener noreferrer" className="flex min-h-8 items-center hover:text-white">
+                Equipe Arvion
+              </a>
             </address>
           </div>
           {footer.columns.map((c) => (

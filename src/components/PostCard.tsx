@@ -1,9 +1,7 @@
 import type { Post } from '../content'
 import { cx } from '../lib/cx'
 import { Link } from '../lib/router'
-import { Beacon } from './Beacon'
 import { Card } from './Card'
-import { Core } from './Core'
 
 const dateFmt = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 export const formatDate = (iso: string) => dateFmt.format(new Date(`${iso}T00:00:00Z`))
@@ -11,10 +9,11 @@ export const formatDate = (iso: string) => dateFmt.format(new Date(`${iso}T00:00
 /** A capa de uma publicação: arte desenhada a partir do tom. */
 export function PostCover({ post, className }: { post: Post; className?: string }) {
   const tone = post.tone === 'fire' ? 'fire' : post.tone === 'ocean' ? 'ocean' : 'steel'
+  const src =
+    post.slug === 'passin-cut' ? '/images/art-passin.webp' : post.tone === 'ocean' ? '/images/art-cristais-cyan.webp' : '/images/art-cristais-magenta.webp'
   return (
-    <Card tone={tone} className={cx('grid place-items-center', className)}>
-      {post.tone === 'ocean' ? <Core className="h-[86%] w-auto" label="" /> : null}
-      {post.tone === 'steel' ? <Beacon kind="ai" className="w-[72%]" decorative /> : null}
+    <Card tone={tone} className={cx('grid place-items-center overflow-hidden', className)}>
+      {post.tone !== 'fire' ? <img src={src} alt="" aria-hidden loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" /> : null}
       {post.tone === 'fire' && post.cover ? <span className="text-[64px] font-medium tracking-[-0.05em] text-white/95">{post.cover}</span> : null}
     </Card>
   )
